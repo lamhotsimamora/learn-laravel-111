@@ -52,4 +52,25 @@ class UserController extends Controller
         $user->save();
         return response()->json(['result'=>true]);
     }
+
+    public function updateUser(Request $request){
+        $validate = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'id' => 'required'
+        ]);
+
+        $id = $request->id;
+        $email = $request->email;
+        $name = $request->name;
+
+        $user = Users::find($id);
+
+        $user->name = $name;
+        $user->email = $email;
+
+        $user->save();
+
+        return response()->json(['result'=>true]);
+    }
 }
